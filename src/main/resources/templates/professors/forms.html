@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<title>Professor</title>
+<link rel="stylesheet" href="../css/professeur/ajouter.css">
+<head th:insert="~{fragments/fragment :: head}">
+</head>
+<body>
+<div  th:insert="~{fragments/fragment :: sidebar(school=${school})}"></div>
+
+<div class="main-content">
+    <main>
+        <div class="retour-container">
+            <a th:href="@{/professors}" class="retour">← Retour</a>
+        </div>
+        <h2 th:text="${professor.id == null}?'Ajouter professeur':'Modifier Professeur'"></h2>
+        <form id="addStudentForm" th:object="${professor}" th:action="@{/professors}" method="post">
+            <input type="text" th:field="*{id}" hidden>
+            <input type="text" th:field="*{user.id}" hidden>
+            <input type="text" th:field="*{address.id}" hidden>
+            <div class="form-row">
+                <input type="text" th:field="*{firstName}" id="nom" placeholder="Nom" required>
+                <input type="text" th:field="*{lastName}" id="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label>Genre :</label>
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" th:field="*{gender}" value="MAN" required> Homme
+                    </label>
+                    <label>
+                        <input type="radio" th:field="*{gender}" value="WOMAN" required> Femme
+                    </label>
+                    <label>
+                        <input type="radio" th:field="*{gender}" value="OTHER" required> Autre
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label>Disponibilite :</label>
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" th:field="*{available}" value="true" required> oui
+                    </label>
+                    <label>
+                        <input type="radio" th:field="*{available}" value="false" required> non
+                    </label>
+                </div>
+            </div>
+
+                        <div class="form-row">
+                            <select id="classe" required th:field="*{specialty}">
+                                <option value="Histoire">Histoire</option>
+                                <option value="Math">Math</option>
+                                <option value="Geographie">Geographie</option>
+                                <option value="Physique">Physique</option>
+                            </select>
+                        </div>
+
+            <div class="form-row">
+                <input type="number"  placeholder="numero" th:field="*{phoneNumber}">
+                <input type="date" required th:field="*{birthday}">
+            </div>
+            <div class="form-row">
+                <input type="text" th:field="*{address.country}"  placeholder="Pays" required>
+                <input type="text" th:field="*{address.city}"  placeholder="Ville" required>
+                <input type="text" th:field="*{address.street}"  placeholder="Rue" required>
+            </div>
+            <div class="form-row">
+                <input type="text" th:field="*{user.pseudo}"  placeholder="Nom d'utilisateur" required>
+                <input type="password" th:field="*{user.password}"  placeholder="Mot de passe" required>
+            </div>
+            <div class="form-row buttons">
+                <button type="button" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Enregistrer</button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<th:block th:insert="~{fragments/fragment :: script-modal}"></th:block>
+</body>
+</html>
